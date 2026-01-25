@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+env/
+.venv/
+AgentAI/agentai/
+Lib/
+Include/
+Scripts/
+share/
+
+# Nested repos (copied by mistake)
+langchain_init/
+langchain_local/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+c
