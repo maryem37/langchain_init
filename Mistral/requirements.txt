@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+langchain
+chromadb
+pymupdf
+pypdf
+python-docx
+ollama
+requests
+streamlit

@@ -13,8 +13,7 @@ Scripts/
 share/
 
 # Nested repos (copied by mistake)
-langchain_init/
-langchain_local/
+
 
 # IDE
 .vscode/

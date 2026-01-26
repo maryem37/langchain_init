@@ -1,0 +1,85 @@
+To make the extracted text searchable , we need to convert it into vector embeddings
+we'll use : Langchain for embeddings
+            ChromaDB as our vector database
+step1 install librairies
+step2 load text and generate Embeddings
+
+huggingFaceEmbeddings this imports the embeddings model from hugging face integration, which converts text into numerical
+chroma this imports chroma db a vector database for storing and retrieving embeddings .
+langchain textsplitter this is a text splitting utility from lang chain that divides longer text into smaller chunks for better
+
+model_name="sentence-transformers/all-mpnet-base-v2" 
+now this model converts text into high dimensional vectors which can be used
+ for semantic search and similarity comparisons
+
+now once the documents are converted into embeddings which we did in the past videos we can store 
+them and retrieve relevant chunks later
+
+Testing the Full Pipeline 
+1 load and index documents
+2 Search for information
+
+PDF / DOCX / TXT
+        ↓
+Text chunks
+        ↓
+Embeddings (HuggingFace)
+        ↓
+ChromaDB (local)
+        ↓
+Query
+        ↓
+Mistral (Ollama)
+        ↓
+Answer
+
+
+Build a Vector Search Pipeline to Find Relevant documents
+create a search pipeline that:
+    accepts a user Query
+    converts the query into embeddings
+    search  for similar documents in ChromaDB
+    Returns the top relevant passages
+1
+pip install langchain chromadb sentence-transformers
+2
+implement the vector search Function
+
+
+
+Implement Retrieval-Augmented Generation (RAG)
+
+Instead of returning just the raw text , we will:
+retrieve relevent document chunks
+pass them to mistral AI
+let Mistral generate a contextual response
+
+step 1 modify the search function to implement RAG
+
+
+
+connect mistral AI via langchain for AI_POWERED Summaries
+instead of calling mr via request we can integrte it directly with lang chain
+
+install langchain ollama integration 
+modify the AI Response Function
+
+create an API endpoint to handle user queries
+ 
+ install fast api and uvicorn
+ create a fast api server
+
+
+embedding_model = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-mpnet-base-v2"
+)
+HuggingFaceEmbeddings → a wrapper that turns text → numeric vector (embedding)
+
+model_name="sentence-transformers/all-mpnet-base-v2" → the specific pretrained model used to generate those vectors
+
+step4 test the API:
+ test in postman
+ test api via python requests
+
+
+ chat_like interface for user queries
