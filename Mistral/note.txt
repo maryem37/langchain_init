@@ -1,23 +1,42 @@
-To make the extracted text searchable , we need to convert it into vector embeddings
-we'll use : Langchain for embeddings
-            ChromaDB as our vector database
-step1 install librairies
-step2 load text and generate Embeddings
+Building a Vector Search and RAG Pipeline with LangChain, ChromaDB, and Mistral AI
 
-huggingFaceEmbeddings this imports the embeddings model from hugging face integration, which converts text into numerical
-chroma this imports chroma db a vector database for storing and retrieving embeddings .
-langchain textsplitter this is a text splitting utility from lang chain that divides longer text into smaller chunks for better
+This guide explains how to make documents searchable, retrieve relevant information, and generate contextual AI responses.
 
-model_name="sentence-transformers/all-mpnet-base-v2" 
-now this model converts text into high dimensional vectors which can be used
- for semantic search and similarity comparisons
+1. Overview
 
-now once the documents are converted into embeddings which we did in the past videos we can store 
-them and retrieve relevant chunks later
+To make text searchable, we need to convert it into vector embeddings, which are numerical representations of text. These embeddings allow us to perform semantic search and similarity comparisons.
 
-Testing the Full Pipeline 
-1 load and index documents
-2 Search for information
+Tools Used:
+
+LangChain – for generating embeddings and managing pipelines
+
+HuggingFaceEmbeddings – converts text into high-dimensional numerical vectors
+
+ChromaDB – a vector database to store and retrieve embeddings
+
+LangChain TextSplitter – splits large text into smaller chunks for better embeddings
+
+Mistral AI via Ollama – generates contextual responses from retrieved text
+
+2. High-Level Pipeline
+
+Load documents (PDF, DOCX, TXT)
+
+Split text into smaller chunks for processing
+
+Convert text chunks into embeddings
+
+Store embeddings in ChromaDB (local vector database)
+
+Accept a user query and convert it into embeddings
+
+Search ChromaDB for relevant chunks
+
+Pass retrieved chunks to Mistral AI for contextual answers
+
+Return the final answer to the user
+
+Visual Flow:
 
 PDF / DOCX / TXT
         ↓
@@ -29,57 +48,114 @@ ChromaDB (local)
         ↓
 Query
         ↓
-Mistral (Ollama)
+Mistral AI (Ollama)
         ↓
 Answer
 
+3. Building a Vector Search Pipeline
 
-Build a Vector Search Pipeline to Find Relevant documents
-create a search pipeline that:
-    accepts a user Query
-    converts the query into embeddings
-    search  for similar documents in ChromaDB
-    Returns the top relevant passages
-1
-pip install langchain chromadb sentence-transformers
-2
-implement the vector search Function
+The vector search pipeline should:
 
+Accept a user query
 
+Convert the query into embeddings
 
-Implement Retrieval-Augmented Generation (RAG)
+Search for similar documents in ChromaDB
 
-Instead of returning just the raw text , we will:
-retrieve relevent document chunks
-pass them to mistral AI
-let Mistral generate a contextual response
+Return the top relevant passages
 
-step 1 modify the search function to implement RAG
+Steps to build:
 
+Install required libraries: LangChain, ChromaDB, HuggingFace models
 
+Load text documents and generate embeddings
 
-connect mistral AI via langchain for AI_POWERED Summaries
-instead of calling mr via request we can integrte it directly with lang chain
+Store embeddings in ChromaDB
 
-install langchain ollama integration 
-modify the AI Response Function
+Implement search functionality to retrieve relevant passages
 
-create an API endpoint to handle user queries
- 
- install fast api and uvicorn
- create a fast api server
+4. Retrieval-Augmented Generation (RAG)
 
+RAG enhances the search pipeline by generating contextual AI responses instead of returning raw text.
 
-embedding_model = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-mpnet-base-v2"
-)
-HuggingFaceEmbeddings → a wrapper that turns text → numeric vector (embedding)
+Workflow:
 
-model_name="sentence-transformers/all-mpnet-base-v2" → the specific pretrained model used to generate those vectors
+Retrieve the top relevant document chunks
 
-step4 test the API:
- test in postman
- test api via python requests
+Pass them to Mistral AI
 
+Mistral generates a context-aware answer
 
- chat_like interface for user queries
+Benefits:
+
+Users receive summarized, meaningful responses
+
+Supports decision-making or knowledge extraction from large documents
+
+5. Connecting Mistral AI via LangChain
+
+Instead of directly calling Mistral via API requests, it can be integrated with LangChain to:
+
+Automatically feed retrieved chunks into the model
+
+Generate AI-powered summaries or responses
+
+Steps:
+
+Install LangChain Ollama integration
+
+Modify the AI response function to work with retrieved documents
+
+6. Creating an API Endpoint
+
+To handle user queries, a FastAPI server can be created:
+
+Accepts queries from users
+
+Passes them through the vector search + RAG pipeline
+
+Returns the contextual AI response
+
+Steps:
+
+Install FastAPI and Uvicorn
+
+Build a simple API to receive queries
+
+Test the API using Postman or Python requests
+
+7. Optional: Chat-Like Interface
+
+For a more interactive experience:
+
+Wrap the API in a chat interface
+
+Users can ask questions continuously
+
+Each query triggers vector search + RAG
+
+Responses are returned dynamically
+
+8. Summary
+
+Pipeline Components:
+
+Text preprocessing – split large documents into chunks
+
+Embeddings – convert text chunks into numeric vectors using HuggingFace
+
+Vector database – store embeddings in ChromaDB
+
+Query processing – convert user query into embeddings and retrieve top matches
+
+Contextual AI – pass retrieved chunks to Mistral AI for answers
+
+API / Interface – make the system accessible to users
+
+Outcome:
+
+Documents become searchable semantically
+
+Users receive contextual AI-generated answers
+
+Supports building knowledge bases, summarizers, and intelligent search systems
