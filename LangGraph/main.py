@@ -1,4 +1,4 @@
-# -- LangGraph Email Assistant - Fixed Version --
+# -- LangGraph Email Assistant -
 
 import os
 import json
